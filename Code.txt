@@ -1,0 +1,470 @@
+Web Table:
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Webtable {
+	public static void main(String[] args) {		
+WebDriver driver = new FirefoxDriver();
+driver.get("http://www.espncricinfo.com/ci/engine/match/415281.html");
+WebElement table =driver.findElement(By.id("inningsBat1"));
+List<WebElement>noofrows=table.findElements(By.tagName("tr"));
+System.out.println("no of rows"+noofrows.size());
+int i=0;
+
+for(WebElement eachrow:noofrows)
+{
+	
+	List<WebElement>eachcoloumn=eachrow.findElements(By.tagName("td"));
+	i++;
+	System.out.println("no of coloumns in"+i+"th row are"+eachcoloumn.size());
+
+	for(WebElement text:eachcoloumn)
+	{
+		System.out.println(text.getText());
+	}
+	}
+}
+}
+
+
+Identifying Frame HTML:
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class IdentifyingFramefromHtml {
+
+	public static void main(String[] args) {
+	try
+		{
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://fantasycricket.dream11.com/IN/");
+		WebDriverWait wd = new WebDriverWait(driver, 5);
+		driver.findElement(By.xpath(".//*[@id='m_rtxtEmail1']")).sendKeys("gret");
+		wd.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//*[@id='m_frmRegister']/div[1]/ul")));
+		driver.findElement(By.xpath(".//*[@id='m_frmRegister']/div[1]/ul/li[2]/p")).click();
+		int number=findFramenumber(driver,By.xpath(".//*[@id='recaptcha-anchor']/div[5]"));
+		driver.switchTo().frame(number);
+		driver.findElement(By.xpath(".//*[@id='recaptcha-anchor']/div[5]"));
+		driver.switchTo().defaultContent();
+		int number1=findFramenumber(driver,By.xpath(".//*[@id='recaptcha-verify-button']"));
+		driver.switchTo().frame(number1);
+		driver.findElement(By.xpath(".//*[@id='recaptcha-verify-button'")).click();
+		
+		}
+
+		catch(Exception e)
+		{
+			
+		}
+	}
+
+public static int findFramenumber(WebDriver driver, By by)
+{
+	int i;
+	int framecount = driver.findElements(By.tagName("iframe")).size();
+	for( i=0; i<framecount;i++)
+	{
+	driver.switchTo().frame(i);
+	int count = driver.findElements(by).size();
+	if(count>0)
+	{
+		//driver.findElement(by).click();
+	break;
+	}
+	else
+	{
+		System.out.println("continue the loop");
+		
+	}
+}
+	driver.switchTo().defaultContent();
+	return i;
+	
+		}
+
+}
+
+Testcase Excercise:
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class TestcaseExercise {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://www.ebay.com/");
+		System.out.println("Links in the Page");
+		System.out.println(driver.findElements(By.tagName("a")).size());
+		WebElement footer = driver.findElement(By.xpath(".//*[@id='glbfooter']"));
+		System.out.println("Links in the Footer Section");
+		System.out.println(footer.findElements(By.tagName("a")).size());
+		WebElement column=driver.findElement(By.xpath(".//*[@id='gf-BIG']/table/tbody/tr/td[1]/ul"));
+		System.out.println("Links in the 1st column of the Section");
+		System.out.println(column.findElements(By.tagName("a")).size());
+		String Beforeclicking = null;
+		String Afterclicking;
+		for(int i=0;i<column.findElements(By.tagName("a")).size();i++)
+		{
+			//System.out.println(column.findElements(By.tagName("a")).get(i).getText());
+		if(column.findElements(By.tagName("a")).get(i).getText().contains("Stores"))
+		{
+			Beforeclicking = driver.getTitle();
+
+			column.findElements(By.tagName("a")).get(i).click();
+			break;
+			}
+		}
+		Afterclicking = driver.getTitle();
+	
+		if(Beforeclicking!=Afterclicking)
+		{
+			boolean ABC = driver.findElement(By.xpath(".//*[@id='AreaTitle']/div/h1")).isDisplayed();
+			if(ABC==true)
+				//if(driver.getPageSource().contains("eBay Stores"))
+				
+				System.out.println("PASS");
+		}
+		else
+		{
+			System.out.println("FAIL");
+		}
+	}		
+		
+}
+		
+
+
+Radio Buttons:
+
+package basics;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Radiobuttons {
+
+	public static void main(String[] args) {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("http://www.echoecho.com/htmlforms10.htm");
+		driver.findElement(By.xpath("//input[@value='Butter']")).click();
+		driver.findElements(By.xpath("//input[@name='group1']")).size();
+		
+		int count =driver.findElements(By.xpath("//input[@name='group1']")).size();
+	for (int i=0;i<count;i++)
+	{
+		//driver.findElements(By.xpath("//input[@name='group1']")).get(i).click();
+	String text =driver.findElements(By.xpath("//input[@name='group1']")).get(i).getAttribute("value");
+	
+	if (text.equals("Cheese"))
+	{
+		driver.findElements(By.xpath("//input[@name='group1']")).get(i).click();
+	}
+	}
+	}
+
+}
+ALERT
+package alert1;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Alertclass {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver d=new FirefoxDriver();
+		d.get("http://www.rediff.com/");
+		Thread.sleep(2000);
+		d.findElement(By.xpath("html/body/div[2]/div[4]/span[3]/a")).click();
+		Thread.sleep(2000);
+		Alert abc= d.switchTo().alert();
+		System.out.println(abc.getText());
+		abc.accept();
+		
+	}	
+	}
+GMAIL
+package gmailpackage;
+
+import java.io.File;
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
+
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
+public class Gmailclass {
+	@Test(priority=1)
+
+	public void gmaillogin() throws InterruptedException
+	{
+		WebDriver d = new FirefoxDriver();
+		d.get("http://www.gmail.com");
+		Thread.sleep(2000);
+		d.findElement(By.id("Email")).sendKeys("tejur1011@gmail.com");
+		Thread.sleep(2000);
+		d.findElement(By.xpath(".//*[@id='next']")).click();
+		Thread.sleep(2000);
+		d.findElement(By.name("Passwd")).sendKeys("gmailpassword@1");
+		Thread.sleep(2000);
+		d.findElement(By.id("signIn")).click();
+		Thread.sleep(10000);
+		d.findElement(By.xpath(".//*[@id='signIn']")).click();
+		Thread.sleep(5000);
+		d.findElement(By.id(".//*[@id='gb_71']")).click();
+		Thread.sleep(7000);
+		d.close();
+	}
+
+}
+kEYWORD& READ EXCEL
+package gmailkeyword;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Gmailkeywordclass {
+
+	static WebDriver d;
+	public void Open_Browser(String tdata )
+	{
+	if(tdata.equalsIgnoreCase("Firefox"))
+	{
+		d= new FirefoxDriver();
+	}
+		
+	}
+	public void Enter_Url(String tdata)
+	{
+	d.get(tdata);
+	
+	}
+	
+	public void Click_On_Link(String lvalue, String ltype)
+	{
+	By locator;
+	locator=locatorvalue(lvalue,ltype);
+	WebElement e = d.findElement(locator);
+	e.click();
+	}
+	public void Enter_Text(String lvalue, String ltype,String tdata)
+	{
+		By locator;
+		locator=locatorvalue(lvalue,ltype);
+		WebElement e = d.findElement(locator);
+		e.sendKeys(tdata);;
+	}
+	public void Click_On_Button (String lvalue, String ltype)
+	{
+		By locator;
+		locator=locatorvalue(lvalue,ltype);
+		WebElement e = d.findElement(locator);
+		e.click();
+	}
+	public By locatorvalue(String lvalue, String ltype)
+	{
+		By b;
+		switch(ltype)
+		{
+		case "id":
+			b=By.id(lvalue);
+			break;
+		case "name":
+			b=By.name(lvalue);
+			break;
+		case "xpath":
+			b=By.xpath(lvalue);
+			break;
+		case "LinkText":
+			b=By.linkText(lvalue);
+			break;
+		case "partialLinkText":
+			b=By.partialLinkText(lvalue);
+			break;
+		case "css":
+			b=By.cssSelector(lvalue);
+			break;
+		default:
+			b=null;
+			break;
+		}
+		
+		return b;
+		
+	}
+EXCEL
+package gmailkeyword;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
+
+public class Readexcelc {
+
+	Workbook wb;
+	Sheet sh;
+	public void OpenWorkbook(String Filepath) throws BiffException, IOException
+	{
+		FileInputStream fs;
+		
+		fs= new FileInputStream(Filepath);
+		wb=Workbook.getWorkbook(fs);
+	    sh=wb.getSheet(0);
+		
+	}
+	
+	public String GetValuesFromCell(int c, int r)
+			{
+		String celldata=sh.getCell(c,r).getContents();
+		return celldata;
+			}
+			
+			
+			public int GetRowCount()
+			{
+				int r=sh.getRows();
+				
+				return r;
+			}
+			
+			
+			public int GetColumnCount()
+			{
+				int c=sh.getColumns();
+				return c;
+			}
+			
+}
+		
+EXCEPTION
+package exceptionpackage;
+
+public class Arrayexception {
+
+	public static void main(String[] args) {
+		int i[]= new int[4];
+		i[4]=1000;
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+}
+WEBDRIVER
+package seleniumwebdriver1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class Class1 {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver d=new FirefoxDriver();
+		d.get("https://www.google.com/?gws_rd=ssl");
+		Thread.sleep(2000);
+		
+		/*d.findElement(By.id("Email")).sendKeys("tejur1011@gmail.com");
+		Thread.sleep(2000);
+		d.findElement(By.id("Email")).sendKeys(Keys.ENTER);
+		Thread.sleep(2000);
+		d.findElement(By.name("Passwd")).sendKeys("gmailpassword@1");
+		Thread.sleep(2000);
+		d.findElement(By.name("Passwd")).sendKeys(Keys.ENTER);*/
+		d.findElement(By.xpath("html/body/div[1]/div[3]/div[1]/div/div/div/div[1]/div[2]/a")).click();	
+		Thread.sleep(2000);
+		d.findElement(By.xpath("html/body/div[1]/div[4]/div[2]/form/div[2]/div[2]/div[1]/div[1]/div[1]/div/div[2]/div/input[3]")).sendKeys(Keys.DOWN);
+		Thread.sleep(2000);
+		d.findElement(By.xpath("html/body/div[1]/div[4]/div[2]/form/div[2]/div[2]/div[1]/div[1]/div[1]/div/div[2]/div/input[3]")).sendKeys(Keys.UP);
+		Thread.sleep(2000);
+		d.findElement(By.xpath("html/body/div[1]/div[4]/div[2]/form/div[2]/div[2]/div[1]/div[1]/div[1]/div/div[2]/div/input[3]")).sendKeys(Keys.BACK_SPACE);
+	}
+	
+TESTNG
+package example1;
+
+import org.testng.annotations.Test;
+
+public class TestClass1 
+{
+	
+	@Test(priority=1)
+	public void Login()
+	{
+		System.out.println("Login Sucessfull...");
+	}
+	
+	
+	@Test(priority=2)
+	public void BillPayment()
+	{
+		System.out.println("Bill Payment Sucessfull...");
+	}
+	
+	
+	@Test(priority=3)
+	public void Logout()
+	{
+		System.out.println("Logout Sucessfull...");
+	}
+
+}		
+	
+DROPABBLE
+package jqueryelementsp;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Drag {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver d = new FirefoxDriver();
+		d.get("https://jqueryui.com/resources/demos/droppable/default.html");
+		WebElement draggable= d.findElement(By.xpath("//*[@id='draggable']"));
+		WebElement droppable= d.findElement(By.xpath("//*[@id='droppable']"));
+		Actions Action =new Actions(d);
+		Thread.sleep(2000);
+		Action.dragAndDrop(draggable, droppable).perform();;
+		
+		
+		
+
+	}
+
+}	
+
