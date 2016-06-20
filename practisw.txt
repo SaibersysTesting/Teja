@@ -1,0 +1,202 @@
+java collection:
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+
+public class Arraylc {
+
+
+	public static void main(String[] args) {
+
+
+		ArrayList<String> myList = new ArrayList<String>();
+		
+		myList.add("a"); 
+		myList.add("b"); 
+		myList.add("c"); 
+		
+		System.out.println(myList.get(2));
+		System.out.println(myList.size());
+		
+		for(int i=0; i<myList.size(); i++){
+			
+			System.out.println(myList.get(i));
+			
+		}	
+		
+
+	}
+
+}
+
+hash table:
+import java.util.Hashtable;
+
+
+public class HTc {
+
+
+	public static void main(String[] args) {
+
+
+		Hashtable<String, String> ht1 = new Hashtable<String, String>();
+		ht1.put("place1", "plano");
+		ht1.put("place1", "carrolton");
+		
+		
+		Hashtable<String, String> ht2 = new Hashtable<String, String>();
+		
+		ht2.put("course1", "etl");
+		ht2.put("course2", "webservices");
+		
+		
+		Hashtable<String,Hashtable<String, String>> ht = new Hashtable<String,Hashtable<String, String>>();
+		ht.put("institute", a);
+		ht.put("country", b
+		
+		System.out.println(ht.get("institute").get("Course1"));
+		System.out.println(ht.get("country").get(place1"));
+		
+		
+		
+
+	}
+
+}
+
+reflection
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+
+public class Reflectionc {
+
+	
+	public static void main(String[] args) throws SecurityException, NoSuchMethodException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
+
+
+		String x = "click";
+		
+		Method method = testReflection.class.getMethod(x, String.class);
+		method.invoke(method, "hello , teja");
+	}
+	
+	
+	public static void click(String x){
+		
+		System.out.println("Executing the Test : "+x);
+		
+	}
+
+}
+methods:
+
+public class LearningMethodsc {
+	
+	
+	int i; 
+	int j;
+	
+	
+	public void show(){
+		
+		int a;
+		int b;
+		String c;
+	}
+
+	public int display(int k,String a, char c, float f, boolean b){ 
+		int j = 100;
+		System.out.println("Inside Display Method");
+		
+		String x = "Hello";
+		return "hello"; 
+		
+
+	}
+	
+
+	public static void main(String[] args) {
+
+
+		LearningMethods learn = new LearningMethods();
+		learn.show();
+		learn.display(k, a, c, f, b);
+		
+		LearningMethods learn1 = new LearningMethods();
+		learn1.show();
+		
+		
+	Home h = new Home(); 
+		h.i++;
+		Home h1 = new Home(); 
+		h1.i++;
+		
+		Home h2 = new Home(); 
+		System.out.println(h2.i); 
+		
+		
+		Calculator calc = new Calculator();
+		int i = calc.getSum(10, 4); 
+		System.out.println("The sum is : "+i);
+		
+		System.out.println(calc.getMult(10, 4));
+		System.out.println(calc.getDiv(10, 4));
+		System.out.println(calc.getSub(10, 4));
+	}
+
+}
+string comparison:
+public class Stc{
+   public static void main(String args[]){
+      String str = "hello World";
+      String anotherString = "hello hi";
+      Object objStr = str;
+
+      System.out.println( str.compareTo(anotherString) );
+      System.out.println( str.compareToIgnoreCase(anotherString) );
+      System.out.println( str.compareTo(objStr.toString()));
+   }
+}
+
+package test;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class testFilereading_writing {
+
+
+	public static void main(String[] args) throws IOException {
+		
+		File file = new File("c:\\screenshot\\hi.txt");
+		file.createNewFile();
+		FileWriter fw = new FileWriter("c:\\screenshot\\hi.txt");
+		BufferedWriter filewriter = new BufferedWriter(fw);
+		filewriter.write("Please write inside this file");
+		filewriter.newLine();
+		filewriter.write("This is my second line");
+		filewriter.flush();
+		FileReader fr = new FileReader("c:\\screenshot\\hi.txt");
+		BufferedReader filereader = new BufferedReader(fr);
+		String i="";
+		
+		System.out.println(filereader.readLine());
+		
+		while((i = filereader.readLine())!=null){
+			
+			System.out.println(i);
+		}
+		
+		
+
+	}
+
+}
+
