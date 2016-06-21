@@ -1,0 +1,48 @@
+1)
+Defect ID :1
+Product   :southwest airlines
+Reporter  :teja@gmail.com
+version   :2.0
+severity  : trivial
+Platfrom  : PC
+Os        : Windows
+priority  : p5
+initial State : New
+Assign to     : abc@gmail.com
+Estimated hours:24
+Reported On: 06/21/2016
+Deadline   :06/22/2016
+Summary    :southwest airlines  accepts invaild date for Depart Date filed:06/00/2106
+Description:
+1) Open southwest airlines
+2)click on Radio button one way
+Enter the following details
+Deaprt:dallas
+Arrive:California
+Depart Date:selected 06/21/106 from the calender and edited it to 06/00/2106 by typing in the field
+Expected Result:Date field should throw an error  as Enter the valid date.
+
+
+
+2)Defect ID :2
+Product   : bofa online banking
+Reporter  :teja@gmail.com
+version   :1.0
+severity  : critical
+Platfrom  : PC
+Os        : Windows
+priority  : p3
+initial State : Assigned
+Assign to     : abc@gmail.com
+Estimated hours:48
+Reported On: 06/21/2016
+Deadline   :06/23/2016
+Summary    :Password filed showing the characters i.e, password is not masked on the screen 
+Description:
+1) Open the bofa site
+2)
+Enter the following details
+Online Id:teja@gmail.com
+Password: Enter the password as login.It is not masked as *****.
+Expected error:It should throw an error. unmasked password field prevented to login the site.
+
