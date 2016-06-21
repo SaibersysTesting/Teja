@@ -20,6 +20,8 @@ Enter the following details
 Deaprt:dallas
 Arrive:California
 Depart Date:selected 06/21/106 from the calender and edited it to 06/00/2106 by typing in the field
+Adult:1 
+3)click on search
 Expected Result:Date field should throw an error  as Enter the valid date.
 
 
@@ -50,4 +52,7 @@ confirm the password:abc
 enter birthdate:6/23/1991
 enter gender:female
 enter mobile phone number: entered the 11 digits by typing in the field
+Enter current email adress:teja1@gamil.com
+Enter the location
+4)click on next
 Expected error:It should throw an error. this phone number format is not not recognised please check the country and number.
