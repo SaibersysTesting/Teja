@@ -1,0 +1,302 @@
+Handling tab:
+
+package Eventp;
+
+import java.util.Iterator;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class windows {
+
+	public static void main(String[] args) {
+		WebDriver d = new FirefoxDriver();
+		d.get("http://www.pennymacusa.com/");
+	
+	Set<String> winids = d.getWindowHandles();
+	Iterator<String> iterate = winids.iterator();
+	System.out.println(iterate.next());
+	
+	
+	d.findElement(By.xpath(".//*[@id='header-pennymac-usa']/nav/div[1]/div/div[3]/a[1]/button")).click();
+	System.out.println("After new window");
+	winids = d.getWindowHandles();
+	iterate = winids.iterator();
+	String firstwindow= iterate.next();
+	String tabwindow = iterate.next();
+	System.out.println(firstwindow);
+	System.out.println(tabwindow);
+	d.switchTo().window(tabwindow);
+	d.findElement(By.linkText("Legal")).click();
+	System.out.println("After next new window");
+	winids = d.getWindowHandles();
+	iterate = winids.iterator();
+	System.out.println(firstwindow);
+	System.out.println(tabwindow);
+	String pop_up = iterate.next();
+	System.out.println(pop_up );
+	d.switchTo().window(pop_up);
+	d.close();
+	d.switchTo().window(tabwindow);
+	d.close();
+	d.switchTo().window(firstwindow);
+	d.close();
+	
+	
+	}
+	
+
+}
+
+
+Testlistener
+package Eventp;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+
+public class testlistener {
+
+	public static void main(String[] args) throws InterruptedException {
+WebDriver webdriver = new FirefoxDriver();
+		
+		EventFiringWebDriver driver = new EventFiringWebDriver(webdriver);
+		
+		Weblisteners listner = new Weblisteners();
+		
+		driver.register(listner);
+		
+		driver.navigate().to("http://google.com");
+		
+		driver.findElement(By.xpath("//*[@id='gbw']/div/div/div[1]/div[1]/a")).click();
+		
+		Thread.sleep(2000L);
+		driver.navigate().back();
+		Thread.sleep(2000L);
+		driver.findElement(By.xpath("//*[@id='gbw']/div/div/div[1]/div[2]/a")).click();
+		Thread.sleep(2000L);
+		driver.navigate().back();
+		Thread.sleep(2000L);
+		driver.navigate().forward();
+		
+		
+	}
+
+}
+
+weblistener
+package Eventp;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
+
+public class Weblisteners extends AbstractWebDriverEventListener {
+	public void afterClickOn(WebElement element, WebDriver driver){
+		System.out.println("object clicked");
+		
+	}
+	
+	public void afterNavigateForward(WebDriver driver){
+		System.out.println("move forward");
+	}
+}
+
+web application:
+package Eventp;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class webapplication {
+
+	public static void main(String[] args) {
+		WebDriver d = new FirefoxDriver();
+		d.get("http://pbskids.org/lions/games/theospuzzles.html");
+
+
+		
+
+	}
+
+}
+
+Button :
+
+import org.openqa.selenium.By; 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement; 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.chrome.ChromeDriver; 
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.List;
+
+import org.openqa.selenium.firefox.*;
+
+import java.util.concurrent.*;
+import org.junit.Test;
+
+public class ButtonClick 
+{
+	@Test 
+	public void test() 
+	{
+		System.setProperty("webdriver.chrome.driver", "d:\\struts2\\Selenium\\chromedriver.exe");        
+        WebDriver driver = new ChromeDriver(); 
+       
+        driver.get("http://localhost:8081/ShowJSP1/Show.jsp");
+        driver.findElement(By.id("submit")).click();
+        WebElement element=driver.findElement(By.id("uname"));
+       String val=element.getAttribute("value");
+        element.sendKeys("admin");
+        
+        WebElement element1=driver.findElement(By.id("pwd"));
+        element1.sendKeys("admin");
+         
+         
+        
+       
+        driver.findElement(By.name("name")).sendKeys("User1234");
+        
+        
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		for (int i = 0; i<=20; i++)
+		{ 
+			WebElement btn = driver.findElement(By.id("submitButton"));
+			if (btn.isEnabled())
+			{  
+				System.out.print(Button is enabled and webdriver is clicking on it now"); 
+				 
+				driver.findElement(By.id("submitButton")).click(); 
+				i=20;
+				}
+			else
+			{ 
+				System.out.print(" Button is disabled right now.."); 
+				} 
+			try
+			{
+				Thread.sleep(500); 
+			}
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
+			}
+		 } 
+		 }test method
+			
+		public static void main(String args[])
+		{
+			ButtonClick bc=new ButtonClick();
+			bc.test();
+		}
+	}
+
+password Encoding & decoding
+
+
+package Eventp;
+
+import java.util.Base64;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class encoding {
+
+	
+		public static String decode(String EncodePassword)
+		{
+			byte[] valueDecoded= Base64.decodeBase64(encodedPassword);
+			return new String(valueDecoded);
+
+		}
+		public static void main(String[] args) 
+		{
+		byte[] bytesEncoded = Base64.encodeBase64("how_are_you".getBytes());
+		System.out.println("ecncoded value is " + new String(bytesEncoded ));
+
+		byte[] valueDecoded= Base64.decodeBase64(bytesEncoded );
+		System.out.println("Decoded value is " + new String(valueDecoded));
+		WebDriver d=new FirefoxDriver();
+		d.get("http://www.gmail.com");
+		Thread.sleep(2000);
+		d.findElement(By.id("Email")).sendKeys("tejur1011@gmail.com");
+		Thread.sleep(2000);
+		d.findElement(By.xpath(".//*[@id='next']")).click();
+		Thread.sleep(2000);
+		d.findElement(By.name("Passwd")).sendKeys(decode("xxxxx"));
+		
+		
+
+	}
+
+}
+Droppable and dragable
+
+package jqueryelementsp;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Drag {
+
+	public static void main(String[] args) throws InterruptedException {
+		WebDriver d = new FirefoxDriver();
+		d.get("https://jqueryui.com/resources/demos/droppable/default.html");
+		WebElement draggable= d.findElement(By.xpath("//*[@id='draggable']"));
+		WebElement droppable= d.findElement(By.xpath("//*[@id='droppable']"));
+		Actions Action =new Actions(d);
+		Thread.sleep(2000);
+		Action.dragAndDrop(draggable, droppable).perform();;
+		
+		
+		
+
+	}
+
+}	
+
+webdriver:
+package driverp;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Driverc {
+
+	public static void main(String[] args) throws InterruptedException 
+	{
+		
+
+
+		System.setProperty("webdriver.ie.driver", "c:/softwares/IEDriverServer.exe");
+
+		WebDriver driver = new InternetExplorerDriver();
+		driver.get("http://jqueryui.com/resources/demos/slider/default.html");
+		
+		WebElement slider = driver.findElement(By.xpath("//*[@id='slider']/a"));
+		
+		Actions action = new Actions(driver);
+		Thread.sleep(3000);
+		action.dragAndDropBy(slider, 90, 0).perform();
+		
+		
+
+	}
+
+}
+
+
